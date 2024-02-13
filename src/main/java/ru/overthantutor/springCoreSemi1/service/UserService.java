@@ -23,7 +23,10 @@ public class UserService {
      */
     public List<User> readAll() {
         Optional<List<User>> optional = userRepository.readAllData(User.class);
-        return optional.orElse(List.of());
+        if (optional.isPresent()) {
+            if (optional.get().isEmpty()) return null;
+        }
+        return optional.orElse(null);
     }
 
     /**
@@ -39,6 +42,11 @@ public class UserService {
         }
     }
 
+    /**
+     * Deleting user by id
+     * @param id user id
+     * @return   deleted user or null if it is not exist
+     */
     public User deleteById(long id) {
         Optional<User> optional = userRepository.readData(id, User.class);
         if (optional.isPresent()) {
@@ -47,5 +55,29 @@ public class UserService {
         } else {
             return null;
         }
+    }
+
+    /**
+     * Updating user
+     * @param user user with updated data
+     * @return     updated user or null if it is not exists
+     */
+    public User updateUser(User user) {
+        Optional<User> optional = userRepository.readData(user.getId(), User.class);
+        if (optional.isPresent()) {
+            userRepository.updateData(user);
+            return user;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Getting user by id
+     * @param id user id
+     * @return   user or null if it is not exist
+     */
+    public User getUserById(long id) {
+        return userRepository.readData(id, User.class).orElse(null);
     }
 }

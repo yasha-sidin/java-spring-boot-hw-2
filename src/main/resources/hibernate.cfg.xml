@@ -14,7 +14,7 @@
         <!--  Specify dialect  -->
 <!--        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>-->
         <!--  Echo all executed SQL to stdout  -->
-        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.show_sql">false</property>
         <!--  Context configuration  -->
         <property name="hibernate.current_session_context_class">thread</property>
         <!--  Drop and re-create the database schema on startup  -->
